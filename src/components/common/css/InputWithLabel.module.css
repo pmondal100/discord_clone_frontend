@@ -1,0 +1,42 @@
+.inputWrapper {
+    margin-top: 5%;
+    margin-left: 2%;
+    font-weight: 300px;
+}
+
+.input {
+    width: 100%; 
+    border-radius: 5px;
+    height: 35px;
+    border: 2px solid #1B1212;
+    background-color: #FFFFF0;
+    margin: 0px;
+    text-indent: 3px
+}
+
+.input:focus {
+    border-color: #1B1212;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #1B1212;
+    outline: 0 none;
+}
+
+.errorInput {
+    width: 100%; 
+    border-radius: 5px;
+    height: 35px;
+    border: 2px solid #d9534f;
+    background-color: #FFFFF0;
+    margin: 0px;
+    text-indent: 3px
+}
+
+.errorInput:focus {
+    border-color: #d9534f;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #d9534f;
+    outline: 0 none;
+}
+
+.label {
+    margin-bottom: 3px;
+    color: #FFFFF0;
+}
