@@ -33,6 +33,7 @@ const LoginForm = (props: propStructure) => {
     }
 
     const onLoginHandler = () => {
+        console.log('testing for commit');
         setEmail('');
         setPassword('');
         console.log('API call goes here!!!', email, password);
