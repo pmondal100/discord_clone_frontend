@@ -1,10 +1,7 @@
-import { authAction } from '../actions/authAction';
-
 interface actionBody {
     type: String,
     payload?: Object | String
 }
-
 
 const init = {
     userDetails: {}
@@ -12,8 +9,13 @@ const init = {
 
 const authReducer = (state = init, action: actionBody) => {
     switch (action.type) {
-        case 'auth': {
-            return authAction();
+        case 'SET_USER_DETAILS': {
+            return {
+                ...state,
+                userDetails: {
+                    ...action.payload
+                }
+            }
         }
         default: {
             return { ...state }

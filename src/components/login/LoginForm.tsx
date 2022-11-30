@@ -3,14 +3,22 @@ import InputWithLabel from "../common/InputWithLabel";
 import { Button, Typography, Tooltip } from "@mui/material";
 import classes from "./css/LoginForm.module.css";
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loginAction } from '../../store/actions/authAction';
 
 interface propStructure {
     buttonLabel: string,
+    loginAction: Function
 }
 
 interface validationSchemaStructure {
     email: string,
     password: string
+}
+
+interface loginReqBody {
+    email: string;
+    password: string;
 }
 
 const LoginForm = (props: propStructure) => {
@@ -33,10 +41,9 @@ const LoginForm = (props: propStructure) => {
     }
 
     const onLoginHandler = () => {
-        console.log('testing for commit');
+        props.loginAction({ email, password }, navigate);
         setEmail('');
         setPassword('');
-        console.log('API call goes here!!!', email, password);
     }
 
     const validateLoginSchema = (): boolean => {
@@ -73,4 +80,10 @@ const LoginForm = (props: propStructure) => {
     )
 }
 
-export default LoginForm;
+const mapDispatchToProps = (dispatch: Function) => {
+    return {
+        loginAction: (userDetails: loginReqBody, navigate: Function) => dispatch(loginAction(userDetails, navigate))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LoginForm);
