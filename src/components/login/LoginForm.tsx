@@ -4,7 +4,7 @@ import { Button, Typography, Tooltip } from "@mui/material";
 import classes from "./css/LoginForm.module.css";
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginAction } from '../../store/actions/authAction';
+import { loginAction } from '../../store/actions/authActions';
 
 interface propStructure {
     buttonLabel: string,
@@ -59,15 +59,16 @@ const LoginForm = (props: propStructure) => {
     }
 
     return (
-        <>
+        <div className={classes.loginForm}>
             <InputWithLabel value={email} setValue={setEmail} validationSchema={LoginValidationSchemas.email} popoverErrorText="Please enter a valid email address." label="Email" placeholder="Enter email here" type="email" />
             <InputWithLabel value={password} setValue={setPassword} validationSchema={LoginValidationSchemas.password} popoverErrorText="Password should be between 6 to 12 characters in length." label="Password" placeholder="Enter password here" type="password" />
-                    <Tooltip title='Press the button to Login' placement='top' arrow><Button sx={{
+                    <Tooltip title='Press the button to Login' placement='right-end' arrow><span><Button sx={{
                         marginLeft: '2%',
                         marginTop: '5%',
                         width: '20%',
                         marginBottom: '10px',
-                    }} disabled={buttonDisabled} onClick={onLoginHandler} className={classes.button} variant="contained">{buttonLabel}</Button>
+                    }} disabled={buttonDisabled} onClick={onLoginHandler} variant="contained">{buttonLabel}</Button>
+                    </span>
                     </Tooltip>
             <Typography sx={{
                 marginLeft: '2%',
@@ -75,8 +76,8 @@ const LoginForm = (props: propStructure) => {
                 alignItems: 'center',
                 fontSize: '12px',
                 color: '#202020'
-            }} className={classes.footer}>Need an account?<span onClick={onRedirectHandler} className={classes.linkText}>Create an account</span></Typography>
-        </>
+            }}>Need an account?<span onClick={onRedirectHandler} className={classes.linkText}>Create an account</span></Typography>
+        </div>
     )
 }
 

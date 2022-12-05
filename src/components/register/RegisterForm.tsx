@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Dispatch } from "react";
+import React, { useState, useEffect } from "react";
 import InputWithLabel from "../common/InputWithLabel";
 import { Button, Typography, Tooltip } from "@mui/material";
 import classes from "./css/RegisterForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { registerAction } from "../../store/actions/authAction";
+import { registerAction } from "../../store/actions/authActions";
 
 interface propStructure {
   buttonLabel: string;
@@ -96,6 +96,7 @@ const RegisterForm = (props: propStructure) => {
         type="password"
       />
       <Tooltip title="Press the button to Register" placement="top" arrow>
+        <span>
         <Button
           sx={{
             marginLeft: "2%",
@@ -110,6 +111,7 @@ const RegisterForm = (props: propStructure) => {
         >
           {buttonLabel}
         </Button>
+        </span>
       </Tooltip>
       <Typography
         sx={{

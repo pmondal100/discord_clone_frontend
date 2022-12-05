@@ -1,7 +1,6 @@
 import { Dispatch } from "react";
 import { loginAPI, registerAPI } from "../../api";
-
-
+import { openAlert } from './alertActions';
 
 interface loginReqBody {
   email: string;
@@ -36,6 +35,7 @@ export const loginAction = (reqBody: loginReqBody, navigate: Function) => {
     const res: any = await loginAPI(reqBody);
     if (res.error) {
       //show some sort of alert or modal
+      dispatch(openAlert(res?.errorObj?.response?.data, 'error'));
     } else {
       const userDetails: userDetailsStructure = {
         token: res.data.token,
@@ -53,6 +53,7 @@ export const registerAction = (reqBody: registerReqBody, navigate: Function) => 
     const res: any = await registerAPI(reqBody);
     if (res.error) {
       //show some sort of alert or modal
+      dispatch(openAlert(res?.errorObj?.response?.data, 'error'));
     } else {
       const userDetails: userDetailsStructure = {
         token: res.data.token,
