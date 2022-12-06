@@ -11,10 +11,32 @@ interface registerReqBody {
   username: string;
 }
 
+interface responseStructure {
+  status?: number,
+  message?: string
+}
+
+interface exceptionStructure{
+  response: responseStructure
+}
+
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "http://localhost:5005",
   timeout: 3000,
 });
+
+axios.interceptors.request.use(
+  (config: any) => {
+    const user = JSON.parse(localStorage.get("user"));
+    if (user) {
+      config.headers.Authorization = `Bearer ${user.token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const loginAPI = async (reqBody: loginReqBody) => {
   try {
@@ -37,3 +59,11 @@ export const registerAPI = async (reqBody: registerReqBody) => {
     };
   }
 };
+
+const handleTokenExceptions = (exception: exceptionStructure) => {
+  const statusCode = exception?.response?.status;
+  if(statusCode === 403 || statusCode === 401){
+    localStorage.clear();
+    window.location.pathname = '/login';
+  }
+}

@@ -67,7 +67,7 @@ const RegisterForm = (props: propStructure) => {
   };
 
   return (
-    <>
+    <div className={classes.registerForm}>
       <InputWithLabel
         value={email}
         setValue={setEmail}
@@ -128,7 +128,7 @@ const RegisterForm = (props: propStructure) => {
           Click here to login.
         </span>
       </Typography>
-    </>
+    </div>
   );
 };
 
