@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertColor, AlertProps } from "@mui/material/Alert";
 import { connect } from 'react-redux';
 import { closeAlert } from '../../store/actions/alertActions';
+import { dispatchBodyStructure } from '../../components/common/utils/commonIntefaces';
 
 interface propStructure {
   alertType?: AlertColor | undefined;
@@ -56,7 +57,7 @@ const mapStateToProps = (state: storeStructure) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Function) => {
+const mapDispatchToProps = (dispatch: Dispatch<dispatchBodyStructure>) => {
   return {
     hideAlert: () => dispatch(closeAlert())
   }

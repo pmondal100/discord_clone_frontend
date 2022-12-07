@@ -1,31 +1,21 @@
 import { Dispatch } from "react";
 import { loginAPI, registerAPI } from "../../api";
 import { openAlert } from './alertActions';
-
-interface loginReqBody {
-  email: string;
-  password: string;
-}
-
-interface registerReqBody {
-  email: string;
-  password: string;
-  username: string;
-}
-
-interface dispatchBodyStructure {
-  type: string;
-  payload: Object;
-}
+import { loginReqBody, registerReqBody } from '../../components/common/utils/commonIntefaces'
+import { dispatchBodyStructure } from '../../components/common/utils/commonIntefaces'; 
 
 interface userDetailsStructure {
   token: string;
   email: string;
 }
 
+export const actionTypes = {
+      setUserDetails: "SET_USER_DETAILS",
+}
+
 const setUserData = (userDetails: userDetailsStructure) => {
   return {
-    type: "SET_USER_DETAILS",
+    type: actionTypes.setUserDetails,
     payload: { ...userDetails },
   };
 };

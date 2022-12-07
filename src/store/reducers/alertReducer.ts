@@ -1,9 +1,6 @@
 import { Action } from "@remix-run/router";
-
-interface actionBody {
-  type: String;
-  payload?: Object | String;
-}
+import { actionBody } from "../../components/common/utils/commonIntefaces";
+import { actionTypes } from "../actions/alertActions";
 
 const init = {
   alertType: "",
@@ -13,14 +10,14 @@ const init = {
 
 const alertReducer = (state = init, action: actionBody) => {
   switch (action.type) {
-    case "SHOW_ALERT": {
+    case actionTypes.showAlert: {
       return {
         ...state,
         ...action.payload,
         alertOpen: true,
       };
     }
-    case "HIDE_ALERT": {
+    case actionTypes.hideAlert: {
       return {
         ...state,
         ...action.payload,

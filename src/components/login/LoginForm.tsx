@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch } from "react";
 import InputWithLabel from "../common/InputWithLabel";
 import { Button, Typography, Tooltip } from "@mui/material";
 import classes from "./css/LoginForm.module.css";
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginAction } from '../../store/actions/authActions';
+import { loginReqBody } from '../common/utils/commonIntefaces';
+import { dispatchBodyStructure } from '../common/utils/commonIntefaces';
 
 interface propStructure {
     buttonLabel: string,
     loginAction: Function
-}
-
-interface validationSchemaStructure {
-    email: string,
-    password: string
-}
-
-interface loginReqBody {
-    email: string;
-    password: string;
 }
 
 const LoginForm = (props: propStructure) => {
@@ -35,7 +27,7 @@ const LoginForm = (props: propStructure) => {
         // eslint-disable-next-line
     }, [email, password])
 
-    const LoginValidationSchemas: validationSchemaStructure = {
+    const LoginValidationSchemas: loginReqBody = {
         email: '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$',
         password: '^[a-zA-Z]{6,12}$'
     }
@@ -81,7 +73,7 @@ const LoginForm = (props: propStructure) => {
     )
 }
 
-const mapDispatchToProps = (dispatch: Function) => {
+const mapDispatchToProps = (dispatch: Dispatch<dispatchBodyStructure>) => {
     return {
         loginAction: (userDetails: loginReqBody, navigate: Function) => dispatch(loginAction(userDetails, navigate))
     }
