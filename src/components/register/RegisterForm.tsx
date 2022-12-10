@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerAction } from "../../store/actions/authActions";
 import { registerReqBody } from "../common/utils/commonIntefaces";
-import { dispatchBodyStructure } from "../common/utils/commonIntefaces";
 
 interface propStructure {
   buttonLabel: string;
@@ -122,7 +121,7 @@ const RegisterForm = (props: propStructure) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<dispatchBodyStructure>) => {
+const mapDispatchToProps = (dispatch: Function) => {
   return {
     registerAction: (userDetails: registerReqBody, navigate: Function) =>
       dispatch(registerAction(userDetails, navigate)),

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginAction } from '../../store/actions/authActions';
 import { loginReqBody } from '../common/utils/commonIntefaces';
-import { dispatchBodyStructure } from '../common/utils/commonIntefaces';
 
 interface propStructure {
     buttonLabel: string,
@@ -73,7 +72,7 @@ const LoginForm = (props: propStructure) => {
     )
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<dispatchBodyStructure>) => {
+const mapDispatchToProps = (dispatch: Function) => {
     return {
         loginAction: (userDetails: loginReqBody, navigate: Function) => dispatch(loginAction(userDetails, navigate))
     }
