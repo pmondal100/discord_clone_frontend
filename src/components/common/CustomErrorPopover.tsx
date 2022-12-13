@@ -14,7 +14,8 @@ const CustomPopover = (props: propStructure) => {
             sx={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                marginTop: '-4.5%',
+                marginTop: '-8px',
+                marginLeft: '-6px',
                 '& > :not(style)': {
                     m: 1,
                     width: '42%',

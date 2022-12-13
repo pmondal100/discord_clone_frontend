@@ -1,11 +1,13 @@
 import React, { useState, useEffect, Dispatch } from "react";
 import InputWithLabel from "../common/InputWithLabel";
-import { Button, Typography, Tooltip } from "@mui/material";
+import { Typography, Tooltip } from "@mui/material";
 import classes from "./css/RegisterForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerAction } from "../../store/actions/authActions";
 import { registerReqBody } from "../common/utils/commonIntefaces";
+import validators from "../common/utils/validators";
+import CustomButton from "../common/CustomButton";
 
 interface propStructure {
   buttonLabel: string;
@@ -23,27 +25,21 @@ const RegisterForm = (props: propStructure) => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
   useEffect(() => {
-    setButtonDisabled(!validateLoginSchema());
+    setButtonDisabled(!validateRegisterSchema());
     // eslint-disable-next-line
   }, [email, username, password]);
 
-  const LoginValidationSchemas: registerReqBody = {
-    email: "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
-    username: "^[a-zA-Z]{6,12}$",
-    password: "^[a-zA-Z]{6,12}$",
-  };
-
-  const onLoginHandler = () => {
+  const onRegisterHandler = (): void => {
     props.registerAction({ email, password, username }, navigate);
     setEmail("");
     setPassword("");
   };
 
-  const validateLoginSchema = (): boolean => {
+  const validateRegisterSchema = (): boolean => {
     if (
-      new RegExp(LoginValidationSchemas.email).exec(email) &&
-      new RegExp(LoginValidationSchemas.username).exec(username) &&
-      new RegExp(LoginValidationSchemas.password).exec(password)
+      new RegExp(validators.email).exec(email) &&
+      new RegExp(validators.username).exec(username) &&
+      new RegExp(validators.password).exec(password)
     ) {
       return true;
     }
@@ -60,7 +56,7 @@ const RegisterForm = (props: propStructure) => {
       <InputWithLabel
         value={email}
         setValue={setEmail}
-        validationSchema={LoginValidationSchemas.email}
+        validationSchema={validators.email}
         popoverErrorText="Please enter a valid email address."
         label="Email"
         placeholder="Enter email here"
@@ -69,7 +65,7 @@ const RegisterForm = (props: propStructure) => {
       <InputWithLabel
         value={username}
         setValue={setUsername}
-        validationSchema={LoginValidationSchemas.username}
+        validationSchema={validators.username}
         popoverErrorText="Username should be between 6 to 12 characters in length."
         label="Username"
         placeholder="Enter username here"
@@ -78,7 +74,7 @@ const RegisterForm = (props: propStructure) => {
       <InputWithLabel
         value={password}
         setValue={setPassword}
-        validationSchema={LoginValidationSchemas.password}
+        validationSchema={validators.password}
         popoverErrorText="Password should be between 6 to 12 characters in length."
         label="Password"
         placeholder="Enter password here"
@@ -86,20 +82,11 @@ const RegisterForm = (props: propStructure) => {
       />
       <Tooltip title="Press the button to Register" placement="top" arrow>
         <span>
-        <Button
-          sx={{
-            marginLeft: "2%",
-            marginTop: "5%",
-            width: "20%",
-            marginBottom: "10px",
-          }}
-          disabled={buttonDisabled}
-          onClick={onLoginHandler}
-          className={classes.button}
-          variant="contained"
-        >
-          {buttonLabel}
-        </Button>
+          <CustomButton
+            disabled={buttonDisabled}
+            onClickHandler={onRegisterHandler}
+            buttonLabel={buttonLabel}
+          />
         </span>
       </Tooltip>
       <Typography

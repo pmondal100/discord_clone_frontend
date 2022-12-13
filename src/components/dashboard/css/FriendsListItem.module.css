@@ -1,0 +1,15 @@
+.onlineIcon {
+    display: flex; 
+    position: absolute;
+    color: #3ba55d;
+    right: 2px;
+    margin-top: -2px;
+}
+
+.offlineIcon {
+    display: flex; 
+    position: absolute;
+    visibility: hidden;
+    right: 2px;
+    margin-top: -2px;
+}

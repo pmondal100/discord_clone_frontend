@@ -25,7 +25,7 @@ const InputWithLabel = (props: inputPropStructure) => {
     const onBlurHandler = (): void => {
         const re = new RegExp(validationSchema);
         const result = re.exec(value);
-        if (result === null) {
+        if (result === null && value !== '') {
             setInputClass('errorInput');
             return;
         }
@@ -40,7 +40,7 @@ const InputWithLabel = (props: inputPropStructure) => {
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                     <label className={classes.label}>{label}</label>
                 </Grid>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                <Grid item xs={8} sm={6} md={6} lg={6} xl={6}>
                     <input className={classes[inputClass]} placeholder={placeholder} type={type} value={value} onBlur={onBlurHandler} onChange={(e) => onChangeHandler(e)} />
                 </Grid>
                 <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
