@@ -8,9 +8,10 @@ interface propStructure {
 
 const Avatar = (props: propStructure) => {
     const { username, large } = props;
+    const usernameArr = username.split("");
     return (
-        <div className={classes.mainContainer} style={ large ? { height: '80px', width: '80px' } : {} }>
-            {username.split('')[0]}
+        <div className={classes.mainContainer} style={ large ? { height: '60px', width: '60px' } : {} }>
+            {usernameArr[0] + '' + usernameArr[1]}
         </div>
     )
 }

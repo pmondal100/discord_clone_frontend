@@ -5,7 +5,7 @@ import classes from "./css/RegisterForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerAction } from "../../store/actions/authActions";
-import { registerReqBody } from "../common/utils/commonIntefaces";
+import { registerReqBody } from "../common/utils/commonInterfaces";
 import validators from "../common/utils/validators";
 import CustomButton from "../common/CustomButton";
 

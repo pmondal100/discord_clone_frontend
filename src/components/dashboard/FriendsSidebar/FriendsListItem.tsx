@@ -30,12 +30,13 @@ const FriendsListItem = (props: propStructure) => {
                 marginLeft: '7px',
                 fontWeight: 700,
                 color: '#8e9297',
+                fontSize: '15px'
             }}
             variant="subtitle1"
             >
                 {username}
             </Typography>
-            <FiberManualRecordIcon className={isOnline ? classes.onlineIcon : classes.offlineIcon}/>
+            <FiberManualRecordIcon fontSize="small" className={isOnline ? classes.onlineIcon : classes.offlineIcon}/>
         </Button>
     )
 }

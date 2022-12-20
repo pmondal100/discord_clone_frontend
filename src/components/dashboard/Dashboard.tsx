@@ -1,12 +1,32 @@
-import React from "react";
+import React, { Dispatch, useEffect } from "react";
 import classes from "./css/Dashboard.module.css";
 import Sidebar from "./Sidebar/Sidebar";
 import FriendsSidebar from "./FriendsSidebar/FriendsSidebar";
 import Messenger from "./Messenger/Messenger";
 import AppBar from "./AppBar/AppBar";
 import Grid from "@mui/material/Grid";
+import { dispatchBodyStructure } from "../common/utils/commonInterfaces";
+import { connect } from "react-redux";
+import { setUserData } from "../../store/actions/authActions";
+import { connectWithSocketServer } from "../../realTimeCommunication/realTimeCommunication";
 
-const Dashboard = () => {
+interface propStructure {
+  setUserData: Function;
+}
+
+const Dashboard = (props: propStructure) => {
+  const { setUserData } = props;
+  useEffect(() => {
+    const userDetails = JSON.parse(localStorage.getItem("user") || "{}");
+    if (Object.keys(userDetails).length === 0) {
+      localStorage.clear();
+      window.location.assign("/login");
+    } else {
+      connectWithSocketServer(userDetails);
+      setUserData(userDetails);
+    }
+  }, []);
+
   return (
     <Grid
       container
@@ -25,4 +45,11 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+const mapDispatchToProps = (dispatch: Dispatch<dispatchBodyStructure>) => {
+  return {
+    setUserData: (userData: { token: string; email: string }) =>
+      dispatch(setUserData(userData)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Dashboard);

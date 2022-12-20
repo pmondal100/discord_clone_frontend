@@ -4,7 +4,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertColor, AlertProps } from "@mui/material/Alert";
 import { connect } from 'react-redux';
 import { closeAlert } from '../../store/actions/alertActions';
-import { dispatchBodyStructure } from '../../components/common/utils/commonIntefaces';
+import { dispatchBodyStructure } from './utils/commonInterfaces';
 
 interface propStructure {
   alertType?: AlertColor | undefined;

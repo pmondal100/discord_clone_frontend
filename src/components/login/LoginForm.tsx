@@ -5,7 +5,7 @@ import classes from "./css/LoginForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginAction } from "../../store/actions/authActions";
-import { loginReqBody } from "../common/utils/commonIntefaces";
+import { loginReqBody } from "../common/utils/commonInterfaces";
 import validators from "../common/utils/validators";
 import CustomButton from "../common/CustomButton";
 

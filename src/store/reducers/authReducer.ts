@@ -1,4 +1,4 @@
-import { actionBody } from "../../components/common/utils/commonIntefaces";
+import { actionBody } from "../../components/common/utils/commonInterfaces";
 import { actionTypes } from "../actions/authActions";
 
 const init = {

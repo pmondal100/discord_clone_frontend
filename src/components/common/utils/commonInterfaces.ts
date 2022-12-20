@@ -18,3 +18,8 @@ export interface dispatchBodyStructure {
   type: string;
   payload: Object;
 }
+
+export interface userDetailsStructure {
+  token: string;
+  email: string;
+}

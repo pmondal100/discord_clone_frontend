@@ -1,5 +1,5 @@
 import { Action } from "@remix-run/router";
-import { actionBody } from "../../components/common/utils/commonIntefaces";
+import { actionBody } from "../../components/common/utils/commonInterfaces";
 import { actionTypes } from "../actions/alertActions";
 
 const init = {
