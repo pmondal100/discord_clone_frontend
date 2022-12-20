@@ -12,12 +12,8 @@ interface registerReqBody {
 }
 
 interface responseStructure {
-  status?: number,
-  message?: string
-}
-
-interface exceptionStructure{
-  response: responseStructure
+  status?: number;
+  message?: string;
 }
 
 const axiosInstance = axios.create({
@@ -27,7 +23,7 @@ const axiosInstance = axios.create({
 
 axios.interceptors.request.use(
   (config: any) => {
-    const user = JSON.parse(localStorage.getItem("user") || '{}');
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (user) {
       config.headers.Authorization = `Bearer ${user.token}`;
     }
@@ -60,10 +56,22 @@ export const registerAPI = async (reqBody: registerReqBody) => {
   }
 };
 
-const handleTokenExceptions = (exception: exceptionStructure) => {
-  const statusCode = exception?.response?.status;
-  if(statusCode === 403 || statusCode === 401){
-    localStorage.clear();
-    window.location.pathname = '/login';
+export const sendFriendInvitationAPI = async (data: any) => {
+  try {
+    return await axiosInstance.post("/friends/sendInvitation", data);
+  } catch (e) {
+    handleTokenExceptions(e);
+    return {
+      error: true,
+      errorObj: e,
+    };
   }
-}
+};
+
+const handleTokenExceptions = (exception: any) => {
+  const statusCode = exception?.response?.status;
+  if (statusCode === 403 || statusCode === 401) {
+    localStorage.clear();
+    window.location.pathname = "/login";
+  }
+};

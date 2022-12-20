@@ -10,8 +10,8 @@ export const connectWithSocketServer = (userDetails: userDetailsStructure) => {
         }
     });
 
-    socket.once('connect', () => {
-        console.log('successfully connected to the socket server.');
-        console.log(socket.id);
+    socket.on('connect', () => {
+        // console.log('successfully connected to the socket server.');
+        // console.log(socket.id);
     })
 }

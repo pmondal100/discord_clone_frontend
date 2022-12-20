@@ -25,6 +25,10 @@ export default function FormDialog(props: propStructure) {
     return false;
   };
 
+  const handleSend = () => {
+    //somecode
+  }
+
   return (
     <div>
       <Dialog
@@ -72,7 +76,7 @@ export default function FormDialog(props: propStructure) {
             size="small"
             variant="contained"
             disabled={!validateFriendEmail(emailFieldValue)}
-            onClick={handleClose}
+            onClick={handleSend}
           >
             Send Request
           </Button>

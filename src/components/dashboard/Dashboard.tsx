@@ -22,6 +22,7 @@ const Dashboard = (props: propStructure) => {
       localStorage.clear();
       window.location.assign("/login");
     } else {
+      console.log('here');
       connectWithSocketServer(userDetails);
       setUserData(userDetails);
     }
