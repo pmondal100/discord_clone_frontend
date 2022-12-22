@@ -2,9 +2,9 @@ import React, { Dispatch } from "react";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertColor, AlertProps } from "@mui/material/Alert";
-import { connect } from 'react-redux';
-import { closeAlert } from '../../store/actions/alertActions';
-import { dispatchBodyStructure } from './utils/commonInterfaces';
+import { connect } from "react-redux";
+import { closeAlert } from "../../store/actions/alertActions";
+import { dispatchBodyStructure } from "./utils/commonInterfaces";
 
 interface propStructure {
   alertType?: AlertColor | undefined;
@@ -14,8 +14,8 @@ interface propStructure {
 }
 
 interface storeStructure {
-  authReducer: Object,
-  alertReducer: Object
+  authReducer: Object;
+  alertReducer: Object;
 }
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -26,9 +26,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 const CustomAlert = (props: propStructure) => {
-
-  const handleClose = (
-  ) => {
+  const handleClose = () => {
     props.hideAlert?.();
   };
   return (
@@ -39,13 +37,15 @@ const CustomAlert = (props: propStructure) => {
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert
-          onClose={handleClose}
-          severity={props.alertType}
-          sx={{ width: "100%" }}
-        >
-          {props.alertMessage}
-        </Alert>
+        {props.alertOpen ? (
+          <Alert
+            onClose={handleClose}
+            severity={props.alertType}
+            sx={{ width: "100%" }}
+          >
+            {props.alertMessage}
+          </Alert>
+        ) : undefined}
       </Snackbar>
     </Stack>
   );
@@ -53,14 +53,14 @@ const CustomAlert = (props: propStructure) => {
 
 const mapStateToProps = (state: storeStructure) => {
   return {
-    ...state.alertReducer
-  }
-}
+    ...state.alertReducer,
+  };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<dispatchBodyStructure>) => {
   return {
-    hideAlert: () => dispatch(closeAlert())
-  }
-}
+    hideAlert: () => dispatch(closeAlert()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomAlert);

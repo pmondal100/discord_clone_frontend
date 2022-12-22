@@ -1,5 +1,5 @@
 import { sendFriendInvitationAPI } from "../../api";
-import { openAlert, closeAlert } from "./alertActions";
+import { openAlert } from "./alertActions";
 import { dispatchBodyStructure } from "../../components/common/utils/commonInterfaces";
 import { Dispatch } from "react";
 
@@ -9,14 +9,18 @@ export const actionTypes = {
   setOnlineFriendsList: "SET_ONLINE",
 };
 
-export const sendInvitation = (data: any) => {
+export const sendInvitation = (data: any, handleClose: Function) => {
   return async (dispatch: Dispatch<dispatchBodyStructure>) => {
     const res: any = await sendFriendInvitationAPI(data);
     if (res.error) {
       dispatch(openAlert(res?.errorObj?.response?.data, "error"));
     } else {
       dispatch(openAlert('Friend request sent successfully', "success"));
-      closeAlert();
+      handleClose();
     }
   };
 };
+
+export const setPendingInvitationsList = (data: Object) => {
+  return { type: actionTypes.setInvitationsList, payload: data}
+}

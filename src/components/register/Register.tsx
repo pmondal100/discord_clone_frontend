@@ -2,7 +2,7 @@ import React from 'react';
 import AuthCard from '../common/AuthCard';
 import Grid from '@mui/material/Grid';
 import RegisterHeader from './RegisterHeader';
-import LoginForm from './RegisterForm';
+import RegisterForm from './RegisterForm';
 import classes from './css/Register.module.css';
 
 const Register = () => {
@@ -11,7 +11,7 @@ const Register = () => {
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                 <AuthCard width='700px' height='530px'>
                     <RegisterHeader />
-                    <LoginForm buttonLabel='Log in'/>
+                    <RegisterForm buttonLabel='Sign Up'/>
                 </AuthCard>
             </Grid>
         </Grid>

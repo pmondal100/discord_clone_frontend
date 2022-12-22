@@ -20,7 +20,6 @@ const alertReducer = (state = init, action: actionBody) => {
     case actionTypes.hideAlert: {
       return {
         ...state,
-        ...action.payload,
         alertOpen: false,
       };
     }

@@ -5,7 +5,6 @@ import FriendsList from "./FriendsList";
 import PendingInvitationList from "../PendingInvitationsList/PendingInvitationsList";
 import FriendsTitle from "./FriendsTitle";
 import FriendsDialog from "./FriendsDialog";
-import CustomButton from "../../common/CustomButton";
 
 const FriendsSidebar = () => {
   const [dialogOpen, setDialogOpen] = useState(false);

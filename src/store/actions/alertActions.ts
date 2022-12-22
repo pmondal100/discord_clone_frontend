@@ -15,10 +15,6 @@ export const openAlert = (msg: string, alertType: string) => {
 
 export const closeAlert = () => {
     return {
-        type: actionTypes.hideAlert,
-        payload: {
-            alertMessage: '',
-            alertType: ''
-        }
+        type: actionTypes.hideAlert
     }
 }

@@ -1,6 +1,13 @@
+
 export interface loginReqBody {
   email: string;
   password: string;
+}
+
+export interface storeStructure {
+  authReducer: Object;
+  alertReducer: Object;
+  friendsReducer: Object;
 }
 
 export interface registerReqBody {
@@ -16,7 +23,7 @@ export interface actionBody {
 
 export interface dispatchBodyStructure {
   type: string;
-  payload: Object;
+  payload?: Object;
 }
 
 export interface userDetailsStructure {

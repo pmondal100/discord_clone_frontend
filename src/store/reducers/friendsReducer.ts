@@ -4,7 +4,8 @@ import { actionTypes } from "../actions/friendsActions";
 const init = {
     friendsList: [],
     invitationsList: [],
-    onlineFriendsList: []
+    onlineFriendsList: [],
+    keepDialogOpen: false
 }
 
 const friendsReducer = (state = init, action: actionBody) => {
@@ -23,7 +24,7 @@ const friendsReducer = (state = init, action: actionBody) => {
             return {
                 ...state,
                 onlineFriendsList: action.payload
-            }
+            } 
         default: 
             return {
                 ...state

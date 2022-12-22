@@ -1,27 +1,12 @@
 import axios from "axios";
-
-interface loginReqBody {
-  email: string;
-  password: string;
-}
-
-interface registerReqBody {
-  email: string;
-  password: string;
-  username: string;
-}
-
-interface responseStructure {
-  status?: number;
-  message?: string;
-}
+import { loginReqBody, registerReqBody } from "./components/common/utils/commonInterfaces";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:5005",
   timeout: 3000,
 });
 
-axios.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config: any) => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (user) {
@@ -56,9 +41,9 @@ export const registerAPI = async (reqBody: registerReqBody) => {
   }
 };
 
-export const sendFriendInvitationAPI = async (data: any) => {
+export const sendFriendInvitationAPI = async (data: { targetInviteEmail: string }) => {
   try {
-    return await axiosInstance.post("/friends/sendInvitation", data);
+    return await axiosInstance.post("/friendsInvitation/invite", data);
   } catch (e) {
     handleTokenExceptions(e);
     return {
