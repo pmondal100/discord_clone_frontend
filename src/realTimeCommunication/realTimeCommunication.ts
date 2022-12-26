@@ -2,6 +2,7 @@ import { io, Socket } from "socket.io-client";
 import { userDetailsStructure } from "../components/common/utils/commonInterfaces";
 import store from "../store/store";
 import { setPendingInvitationsList } from "../store/actions/friendsActions";
+import { pendingInvitations } from "../components/common/utils/commonInterfaces";
 
 let socket: Socket;
 
@@ -18,6 +19,9 @@ export const connectWithSocketServer = (userDetails: userDetailsStructure) => {
     });
 
     socket.on('friendInvitation', (data) => {
-        store.dispatch(setPendingInvitationsList(data));
+        const pendingInvitations = data.pendingInvitations.map((currInvite: pendingInvitations) => {
+            return currInvite.senderId;
+        })
+        store.dispatch(setPendingInvitationsList([ ...pendingInvitations ]));
     })
 }

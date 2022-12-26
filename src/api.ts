@@ -1,5 +1,8 @@
 import axios from "axios";
-import { loginReqBody, registerReqBody } from "./components/common/utils/commonInterfaces";
+import {
+  loginReqBody,
+  registerReqBody,
+} from "./components/common/utils/commonInterfaces";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:5005",
@@ -41,9 +44,35 @@ export const registerAPI = async (reqBody: registerReqBody) => {
   }
 };
 
-export const sendFriendInvitationAPI = async (data: { targetInviteEmail: string }) => {
+export const sendFriendInvitationAPI = async (data: {
+  targetInviteEmail: string;
+}) => {
   try {
     return await axiosInstance.post("/friendsInvitation/invite", data);
+  } catch (e) {
+    handleTokenExceptions(e);
+    return {
+      error: true,
+      errorObj: e,
+    };
+  }
+};
+
+export const acceptFriendInvitationAPI = async (id: string) => {
+  try {
+    await axiosInstance.post("/friendsInvitation/acceptInvite", { id });
+  } catch (e) {
+    handleTokenExceptions(e);
+    return {
+      error: true,
+      errorObj: e,
+    };
+  }
+};
+
+export const rejectFriendInvitationAPI = async (id: string) => {
+  try {
+    await axiosInstance.post("/friendsInvitation/rejectInvite", { id });
   } catch (e) {
     handleTokenExceptions(e);
     return {

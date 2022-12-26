@@ -30,3 +30,8 @@ export interface userDetailsStructure {
   token: string;
   email: string;
 }
+
+export interface pendingInvitations {
+  _id: string,
+  senderId: Object
+}

@@ -1,29 +1,76 @@
-import React, { useState } from "react";
+import React, { Dispatch, useState } from "react";
 import { Box, Typography, Tooltip } from "@mui/material";
 import Avatar from "../../common/Avatar";
 import InvitationListButtons from "./InvitationListButtons";
+import { connect } from "react-redux";
+import { dispatchBodyStructure } from "../../common/utils/commonInterfaces";
+import { setPendingInvitationsList } from "../../../store/actions/friendsActions";
+import { pendingInvitations } from "../../common/utils/commonInterfaces";
+import {
+  acceptFriendInvitationAPI,
+  rejectFriendInvitationAPI,
+} from "../../../api";
 
 interface propStructure {
   username: string;
   mail: string;
   id: number;
-  acceptFriendInvitation: Function;
-  rejectFriendInvitation: Function;
+  pendingInvitationList: Array<pendingInvitations>;
+  setModifiedPendingInvitationList?: Function;
 }
 
 const PendingInvitationsListItem = (props: propStructure) => {
-  const { username, mail, id, acceptFriendInvitation, rejectFriendInvitation } = props;
+  const {
+    username,
+    mail,
+    id,
+    pendingInvitationList,
+    setModifiedPendingInvitationList,
+  } = props;
 
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
 
-  const handleAcceptInvitation = (): any => {
-    acceptFriendInvitation(id);
-    setButtonsDisabled(true);
+  const removeInviteFromList = (id: string): Array<pendingInvitations> => {
+    return pendingInvitationList.filter((currentInvite) => {
+      return currentInvite._id !== id;
+    });
   };
 
-  const handleRejectInvitation = (): any => {
-    rejectFriendInvitation(id);
-    setButtonsDisabled(true);
+  const handleAcceptInvitation = async (): Promise<number> => {
+    try {
+      const res = await acceptFriendInvitationAPI(id.toString());
+      if (!res?.error) {
+        setButtonsDisabled(true);
+        if (setModifiedPendingInvitationList !== undefined) {
+          setModifiedPendingInvitationList(removeInviteFromList(id.toString()));
+        }
+      } else {
+        throw new Error("Something went wrong!!!");
+      }
+      return 0;
+    } catch (e) {
+      console.log(e);
+      return -1;
+    }
+  };
+
+  const handleRejectInvitation = async (): Promise<number> => {
+    try {
+      const res = await rejectFriendInvitationAPI(id.toString());
+      if (!res?.error) {
+        setButtonsDisabled(true);
+        removeInviteFromList(id.toString());
+        if (setModifiedPendingInvitationList !== undefined) {
+          setModifiedPendingInvitationList(removeInviteFromList(id.toString()));
+        }
+      } else {
+        throw new Error("Something went wrong!!!");
+      }
+      return 0;
+    } catch (e) {
+      console.log(e);
+      return -1;
+    }
   };
 
   return (
@@ -54,8 +101,8 @@ const PendingInvitationsListItem = (props: propStructure) => {
           </Typography>
           <InvitationListButtons
             disabled={buttonsDisabled}
-            handleAcceptInvitation={handleAcceptInvitation}
-            handleRejectInvitation={handleRejectInvitation}
+            handleAcceptInvitation={() => handleAcceptInvitation()}
+            handleRejectInvitation={() => handleRejectInvitation()}
           />
         </Box>
       </div>
@@ -63,4 +110,14 @@ const PendingInvitationsListItem = (props: propStructure) => {
   );
 };
 
-export default PendingInvitationsListItem;
+const mapDispatchToProps = (
+  dispatch: Dispatch<dispatchBodyStructure>
+): Object => {
+  return {
+    setModifiedPendingInvitationList: (
+      modifiedList: Array<pendingInvitations>
+    ) => dispatch(setPendingInvitationsList(modifiedList)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(PendingInvitationsListItem);
