@@ -24,3 +24,7 @@ export const sendInvitation = (data: any, handleClose: Function) => {
 export const setPendingInvitationsList = (data: Object) => {
   return { type: actionTypes.setInvitationsList, payload: data}
 }
+
+export const setFriendsList = (data: Array<string>) => {
+  return { type: actionTypes.setFriendsList, payload: data }
+}

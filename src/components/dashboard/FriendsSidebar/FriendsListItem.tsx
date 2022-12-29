@@ -6,13 +6,12 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import classes from '../css/FriendsListItem.module.css';
 
 interface propStructure {
-    id: number,
     username: string,
     isOnline: boolean
 }
 
 const FriendsListItem = (props: propStructure) => {
-    const { id, username, isOnline } = props;
+    const { username, isOnline } = props;
     return (
         <Button sx={{
             width: '100%',

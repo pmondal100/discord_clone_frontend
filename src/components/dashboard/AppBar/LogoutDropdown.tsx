@@ -4,6 +4,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
+import { socket } from "../../../realTimeCommunication/realTimeCommunication";
 
 const LogoutDropdown = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -15,6 +16,7 @@ const LogoutDropdown = () => {
   const handleClose = () => {
     setAnchorEl(null);
     localStorage.clear();
+    socket.emit('disconnected');
     navigate('/login');
   };
 

@@ -1,33 +1,21 @@
 import React from "react";
 import classes from "../css/FriendsList.module.css";
 import FriendsListItem from "./FriendsListItem";
+import { connect } from 'react-redux';
+import { storeStructure } from "../../common/utils/commonInterfaces";
+import _ from 'lodash';
 
-const FriendsList = () => {
-  const dummyFriendList = [
-    {
-      id: 1,
-      username: "Ritesh",
-      isOnline: true,
-    },
-    {
-      id: 2,
-      username: "Mayank",
-      isOnline: false,
-    },
-    {
-      id: 3,
-      username: "Shyama",
-      isOnline: false,
-    },
-  ];
-
+interface propStructure {
+  friendsList?: {id: string, isOnline: boolean, username: string}[]
+}
+const FriendsList = (props: propStructure) => {
+  const localFriendsList: {id: string, isOnline: boolean, username: string}[] | undefined = _.orderBy(props.friendsList, 'username');
   return (
     <div className={classes.mainContainer}>
-      {dummyFriendList.map((currFriend) => {
+      {localFriendsList?.map((currFriend: any) => {
         return (
           <FriendsListItem
             key={currFriend.id}
-            id={currFriend.id}
             username={currFriend.username}
             isOnline={currFriend.isOnline}
           />
@@ -37,4 +25,10 @@ const FriendsList = () => {
   );
 };
 
-export default FriendsList;
+const mapStateToProps = (state: storeStructure) => {
+  return {
+    ...state.friendsReducer
+  }
+}
+
+export default connect(mapStateToProps)(FriendsList);
