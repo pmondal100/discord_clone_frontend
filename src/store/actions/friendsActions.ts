@@ -21,10 +21,10 @@ export const sendInvitation = (data: any, handleClose: Function) => {
   };
 };
 
-export const setPendingInvitationsList = (data: Object) => {
+export const setPendingInvitationsList = (data: Object): dispatchBodyStructure => {
   return { type: actionTypes.setInvitationsList, payload: data}
 }
 
-export const setFriendsList = (data: Array<string>) => {
+export const setFriendsList = (data: Array<string>): dispatchBodyStructure => {
   return { type: actionTypes.setFriendsList, payload: data }
 }

@@ -9,7 +9,7 @@ export const actionTypes = {
       setUserDetails: "SET_USER_DETAILS",
 }
 
-export const setUserData = (userDetails: userDetailsStructure) => {
+export const setUserData = (userDetails: userDetailsStructure): dispatchBodyStructure => {
   return {
     type: actionTypes.setUserDetails,
     payload: { ...userDetails },

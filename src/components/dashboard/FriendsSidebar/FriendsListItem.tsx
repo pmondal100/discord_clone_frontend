@@ -4,16 +4,29 @@ import Avatar from "../../common/Avatar";
 import Typography from "@mui/material/Typography";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import classes from '../css/FriendsListItem.module.css';
+import { connect } from "react-redux";
+import { setChatDetailsAction } from "../../../store/actions/chatActions";
+import { dispatchBodyStructure } from "../../common/utils/commonInterfaces";
+import { Dispatch } from "react";
 
 interface propStructure {
     username: string,
-    isOnline: boolean
+    isOnline: boolean,
+    id: string,
+    setChatDetails: Function
 }
 
 const FriendsListItem = (props: propStructure) => {
-    const { username, isOnline } = props;
+    const { username, isOnline, id, setChatDetails } = props;
+
+    const onFriendButtonClick = () => {
+        setChatDetails('DIRECT', {username, id})
+    }
+
     return (
-        <Button sx={{
+        <Button 
+        onClick={onFriendButtonClick}
+            sx={{
             width: '100%',
             height: '42px',
             marginTop: '10px',
@@ -40,4 +53,10 @@ const FriendsListItem = (props: propStructure) => {
     )
 }
 
-export default FriendsListItem
+const mapDispatchToProps = (dispatch: Dispatch<dispatchBodyStructure>) => {
+    return {
+        setChatDetails: (chatType: string, userDetails: {username: string, id: string}) => dispatch(setChatDetailsAction(chatType, userDetails))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(FriendsListItem);

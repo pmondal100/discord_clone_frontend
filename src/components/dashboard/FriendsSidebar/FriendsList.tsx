@@ -16,6 +16,7 @@ const FriendsList = (props: propStructure) => {
         return (
           <FriendsListItem
             key={currFriend.id}
+            id={currFriend.id}
             username={currFriend.username}
             isOnline={currFriend.isOnline}
           />

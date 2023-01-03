@@ -1,0 +1,28 @@
+.mainContainer {
+    width: 97%;
+    display: flex;
+    margin-top: 10px;
+}
+
+.avatarContainer {
+    width: 70px;
+}
+
+.messageContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.messageContent {
+    color: #DCDDDE;
+}
+
+.sameAuthorMessage {
+    margin-left: 70px;
+}
+
+.sameAuthorMessageContent {
+    color: #DCDDDE;
+    width: 97%;
+    margin-left: 140px;
+}
