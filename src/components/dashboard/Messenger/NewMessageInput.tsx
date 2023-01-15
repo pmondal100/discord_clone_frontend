@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import classes from './css/NewMessageInput.module.css';
+import { sendMessage } from '../../../realTimeCommunication/realTimeCommunication';
+
 interface propStructure {
   chosenChatDetails: {
     id: string;
@@ -14,8 +16,9 @@ const NewMessageInput = (props: propStructure) => {
   }
 
   const handleKeydown = (key: string): void => {
-    if(key === "Enter"){
+    if(key === "Enter" && message.length > 0){
       console.log(`Emit socket.io event for the server with the message ${message}.`);
+      sendMessage({ targetId: chosenChatDetails.id, message });
       setMessage("");
     }
   }

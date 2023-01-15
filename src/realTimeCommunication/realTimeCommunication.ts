@@ -4,7 +4,7 @@ import store from "../store/store";
 import { setPendingInvitationsList, setFriendsList } from "../store/actions/friendsActions";
 import { pendingInvitations } from "../components/common/utils/commonInterfaces";
 
-export let socket: Socket;
+let socket: Socket;
 
 export const connectWithSocketServer = (userDetails: userDetailsStructure) => {
     socket = io('http://localhost:5005', {
@@ -15,7 +15,7 @@ export const connectWithSocketServer = (userDetails: userDetailsStructure) => {
 
     socket.on('connect', () => {
         // console.log('successfully connected to the socket server.');
-        // console.log(socket.id);
+        console.log(socket.id);
     });
 
     socket.on('friendInvitation', (data) => {
@@ -32,6 +32,12 @@ export const connectWithSocketServer = (userDetails: userDetailsStructure) => {
     socket.on('friendsListOnUpdate', (data) => {
         store.dispatch(setFriendsList([ ...data.friendsList ]))
     })
+}
 
+export const logout = () => {
+    socket.emit('disconnected');
+}
 
+export const sendMessage = (data: Object) => {
+    socket.emit('direct-message', data);
 }
