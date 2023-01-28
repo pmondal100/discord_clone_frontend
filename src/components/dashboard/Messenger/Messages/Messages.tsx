@@ -1,88 +1,80 @@
 import React from "react";
 import SingleMessage from "./SingleMessage";
 import MessageHeader from "./MessageHeader";
-import classes from '../css/Messages.module.css';
-import { connect } from "react-redux";
-import {
-  chatReducerStructure,
-  storeStructure,
-} from "../../../common/utils/commonInterfaces";
+import classes from "../css/Messages.module.css";
+import { message } from "../../../common/utils/commonInterfaces";
+import Seperator from "./DateSeperator";
 
-interface propStructure extends chatReducerStructure {
+interface propStructure {
   name: string;
+  messages: Array<message>;
 }
+
+const getFormattedDate = (dateStr: string): string => {
+  var monthArr = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let dateObj = new Date(dateStr);
+  if (dateStr === "") {
+    dateObj = new Date();
+  }
+  let day = dateObj.getDate().toString();
+  if (day.length < 2) {
+    day = "0" + day;
+  }
+  const month = monthArr[dateObj.getMonth()];
+  const year = dateObj.getFullYear();
+
+  return `${day}-${month}-${year}`;
+};
 
 const Messages = (props: propStructure) => {
   const { name, messages } = props;
-  const DUMMY_MESSAGES = [
-    {
-      _id: 1,
-      content: "hello",
-      sameAuthor: false,
-      author: {
-        username: "Marek",
-      },
-      date: "22/01/2022",
-      sameDay: false,
-    },
-    {
-      _id: 2,
-      content: "hello once again",
-      sameAuthor: true,
-      author: {
-        username: "Marek",
-      },
-      date: "22/01/2022",
-      sameDay: true,
-    },
-    {
-      _id: 3,
-      content: "hello third time",
-      sameAuthor: true,
-      author: {
-        username: "Marek",
-      },
-      date: "23/01/2022",
-      sameDay: false,
-    },
-    {
-      _id: 4,
-      content: "hello response first time",
-      sameAuthor: false,
-      author: {
-        username: "John",
-      },
-      date: "23/01/2022",
-      sameDay: true,
-    },
-    {
-      _id: 5,
-      content: "hello response third time",
-      sameAuthor: true,
-      author: {
-        username: "John",
-      },
-      date: "24/01/2022",
-      sameDay: false,
-    },
-  ];
   return (
     <div className={classes.mainContainer}>
       <MessageHeader name={name} />
-      { DUMMY_MESSAGES.map((message, index) => {
+      {messages.map((message, index) => {
+        let sameDay = false,
+          sameAuthor = false;
+        if (
+          index !== 0 &&
+          getFormattedDate(message.date) ===
+            getFormattedDate(messages[index - 1].date)
+        ) {
+          sameDay = true;
+        }
+        if (
+          index !== 0 &&
+          message.author.username === messages[index - 1].author.username
+        ) {
+          sameAuthor = true;
+        }
         return (
-          <SingleMessage key={message._id} content={message.content} date={message.date} username={message.author.username} sameAuthor={message.sameAuthor} sameDay={message.sameDay} />
-        )
-      })
-      }
+          <div key={message._id} style={{ width: "97%" }}>
+            {(sameDay || index === 0) ? <Seperator date={getFormattedDate(message.date)} /> : null}
+            <SingleMessage
+              content={message.content}
+              date={getFormattedDate(message.date)}
+              username={message.author.username}
+              sameAuthor={sameAuthor}
+              sameDay={sameDay}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };
 
-const mapStateToProps = (state: storeStructure) => {
-  return {
-    ...state.chatReducer,
-  };
-};
-
-export default connect(mapStateToProps)(Messages);
+export default Messages;

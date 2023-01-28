@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { setChatDetailsAction } from "../../../store/actions/chatActions";
 import { dispatchBodyStructure } from "../../common/utils/commonInterfaces";
 import { Dispatch } from "react";
+import { sendMessage } from "../../../realTimeCommunication/realTimeCommunication";
 
 interface propStructure {
     username: string,
@@ -21,6 +22,7 @@ const FriendsListItem = (props: propStructure) => {
 
     const onFriendButtonClick = () => {
         setChatDetails('DIRECT', {username, id})
+        sendMessage({ targetId: id });
     }
 
     return (

@@ -47,5 +47,17 @@ export interface chatReducerStructure {
     id: string
 },
 chatType?: string,
-messages?: Array<string>
+messages?: Array<message>
+}
+
+export interface message {
+  _id: string,
+  content: string,
+  sameAuthor: boolean,
+  author: {
+    username: string,
+    _id: string
+  },
+  date: string,
+  sameDay: boolean
 }
