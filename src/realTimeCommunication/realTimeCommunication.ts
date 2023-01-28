@@ -42,6 +42,8 @@ export const connectWithSocketServer = (userDetails: userDetailsStructure) => {
     const messages = data?.conversationObj?.messages;
     if (messages) {
       store.dispatch(setChatMessagesAction(messages));
+    } else {
+      store.dispatch(setChatMessagesAction([]));
     }
   });
 };
