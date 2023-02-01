@@ -39,6 +39,13 @@ const getFormattedDate = (dateStr: string): string => {
   return `${day}-${month}-${year}`;
 };
 
+const getFormattedTime = (dateStr: string): string => {
+  const hours = new Date(dateStr).getHours();
+  const minutes = new Date(dateStr).getMinutes();
+
+  return `${hours}:${minutes}`
+}
+
 const Messages = (props: propStructure) => {
   const { name, messages } = props;
   return (
@@ -62,10 +69,10 @@ const Messages = (props: propStructure) => {
         }
         return (
           <div key={message._id} style={{ width: "97%" }}>
-            {(sameDay || index === 0) ? <Seperator date={getFormattedDate(message.date)} /> : null}
+            {(!sameDay || index === 0) ? <Seperator date={getFormattedDate(message.date)} /> : null}
             <SingleMessage
               content={message.content}
-              date={getFormattedDate(message.date)}
+              time={getFormattedTime(message.date)}
               username={message.author.username}
               sameAuthor={sameAuthor}
               sameDay={sameDay}

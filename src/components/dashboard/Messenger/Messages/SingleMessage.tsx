@@ -5,14 +5,14 @@ import classes from "../css/SingleMessage.module.css";
 
 interface propStructure {
   content: string;
-  date: string;
+  time: string;
   username: string;
   sameDay: boolean;
   sameAuthor: boolean;
 }
 
 const SingleMessage = (props: propStructure) => {
-  const { content, date, username, sameAuthor, sameDay } = props;
+  const { content, time, username, sameAuthor, sameDay } = props;
 
   if (sameAuthor && sameDay) {
     return (
@@ -32,7 +32,7 @@ const SingleMessage = (props: propStructure) => {
                     color: 'white'
                 }}>
                     {username}{" "}
-                    <span style={{fontSize: '12px', color: '#72767d'}}>{date}</span>
+                    <span style={{fontSize: '12px', color: '#72767d'}}>{time}</span>
                 </Typography>
                 <div className={classes.messageContent}>{content}</div>
             </div>
