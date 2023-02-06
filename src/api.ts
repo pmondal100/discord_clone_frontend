@@ -58,9 +58,9 @@ export const sendFriendInvitationAPI = async (data: {
   }
 };
 
-export const acceptFriendInvitationAPI = async (id: string) => {
+export const acceptFriendInvitationAPI = async (recieverMail: string, senderId: string) => {
   try {
-    await axiosInstance.post("/friendsInvitation/acceptInvite", { id });
+    await axiosInstance.post("/friendsInvitation/acceptInvite", { recieverMail: recieverMail, senderId: senderId });
   } catch (e) {
     handleTokenExceptions(e);
     return {

@@ -17,7 +17,7 @@ const LogoutDropdown = () => {
     setAnchorEl(null);
     localStorage.clear();
     logout();
-    navigate('/login');
+    window.location.assign("/login'")
   };
 
   return (

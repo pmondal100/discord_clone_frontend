@@ -1,4 +1,5 @@
 import React, { Dispatch, useState } from "react";
+import { storeStructure } from "../../common/utils/commonInterfaces";
 import { Box, Typography, Tooltip } from "@mui/material";
 import Avatar from "../../common/Avatar";
 import InvitationListButtons from "./InvitationListButtons";
@@ -6,6 +7,7 @@ import { connect } from "react-redux";
 import { dispatchBodyStructure } from "../../common/utils/commonInterfaces";
 import { setPendingInvitationsList } from "../../../store/actions/friendsActions";
 import { pendingInvitations } from "../../common/utils/commonInterfaces";
+import { userDetailsStructure } from "../../common/utils/commonInterfaces";
 import {
   acceptFriendInvitationAPI,
   rejectFriendInvitationAPI,
@@ -17,6 +19,7 @@ interface propStructure {
   id: number;
   pendingInvitationList: Array<pendingInvitations>;
   setModifiedPendingInvitationList?: Function;
+  userDetails?: userDetailsStructure
 }
 
 const PendingInvitationsListItem = (props: propStructure) => {
@@ -38,7 +41,7 @@ const PendingInvitationsListItem = (props: propStructure) => {
 
   const handleAcceptInvitation = async (): Promise<number> => {
     try {
-      const res = await acceptFriendInvitationAPI(id.toString());
+      const res = await acceptFriendInvitationAPI(props?.userDetails?.email || '', id.toString());
       if (!res?.error) {
         setButtonsDisabled(true);
         if (setModifiedPendingInvitationList !== undefined) {
@@ -120,4 +123,10 @@ const mapDispatchToProps = (
   };
 };
 
-export default connect(null, mapDispatchToProps)(PendingInvitationsListItem);
+const mapStateToProps = (state: storeStructure) => {
+  return {
+    ...state.authReducer
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PendingInvitationsListItem);
